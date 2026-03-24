@@ -4,6 +4,7 @@ from diffusers import FluxPipeline
 import base64
 from io import BytesIO
 import os
+import intel_extension_for_pytorch as ipex # Dòng quan trọng
 
 # 1. Khởi tạo model (Chỉ chạy 1 lần khi Pod bật)
 device = "cuda"
