@@ -80,9 +80,9 @@ except Exception as e:
   log(
     "startup_error",
     error=str(e),
-traceback=traceback.format_exc(),
-)
-pipe = None
+    traceback=traceback.format_exc(),
+  )
+  pipe = None
 
 
 def handler(job):
