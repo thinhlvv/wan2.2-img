@@ -1,9 +1,17 @@
 FROM pytorch/pytorch:2.2.1-cuda12.1-cudnn8-devel
 
-RUN pip install runpod diffusers accelerate transformers sentencepiece
-RUN pip install "huggingface_hub[cli]"
+WORKDIR /app
 
-COPY handler.py /handler.py
+RUN pip install --no-cache-dir \
+runpod \
+diffusers \
+accelerate \
+transformers \
+sentencepiece \
+safetensors \
+protobuf \
+"huggingface_hub[cli]"
 
-# Lệnh khởi chạy
-CMD [ "python", "-u", "/handler.py" ]
+COPY handler.py /app/handler.py
+
+CMD ["python", "-u", "/app/handler.py"]
