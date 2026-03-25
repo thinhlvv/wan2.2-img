@@ -9,7 +9,7 @@ import runpod
 import torch
 from diffusers import FluxPipeline
 
-MODEL_PATH = os.getenv("MODEL_PATH", "/runpod-volume/flux2-klein-9b-fp8")
+MODEL_PATH = os.getenv("MODEL_PATH", "/workspace/flux2-klein-9b-fp8")
 device = "cuda" if torch.cuda.is_available() else "cpu"
 dtype = torch.float16 if device == "cuda" else torch.float32
 
