@@ -1,17 +1,23 @@
-FROM pytorch/pytorch:2.2.1-cuda12.1-cudnn8-runtime
+FROM runpod/pytorch:1.0.2-cu1281-torch280-ubuntu2404
 
-WORKDIR /app
+ENV PYTHONDONTWRITEBYTECODE=1
+ENV PYTHONUNBUFFERED=1
 
-RUN pip install --no-cache-dir \
-runpod \
-diffusers \
-accelerate \
-transformers \
-sentencepiece \
-safetensors \
-protobuf \
-"huggingface_hub[cli]"
+# Cài đặt thư viện hệ thống
+RUN apt-get update && apt-get install -y python3-venv libgl1 libglib2.0-0 && rm -rf /var/lib/apt/lists/*
 
-COPY handler.py /app/handler.py
+# Giữ nguyên torch từ base image; chỉ cài các thư viện tương thích với model/pipeline.
+RUN python -m pip install --no-cache-dir --upgrade \
+    runpod \
+    diffusers \
+    "transformers==4.56.1" \
+    accelerate \
+    sentencepiece \
+    omegaconf \
+    safetensors \
+    protobuf
 
-CMD ["python", "-u", "/app/handler.py"]
+COPY handler.py /handler.py
+
+# Đảm bảo port API của RunPod được mở (mặc định)
+CMD [ "python", "/handler.py" ]
