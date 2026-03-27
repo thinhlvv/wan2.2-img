@@ -8,7 +8,8 @@ from huggingface_hub import login
 
 # 1. Cấu hình đường dẫn đến FOLDER chứa model FP16
 # Ví dụ: /runpod-volume/flux2-klein-9b
-MODEL_PATH = os.getenv("MODEL_PATH", "/workspace/flux2-klein-9b")
+# Note: use the fp8 instead
+MODEL_PATH = os.getenv("MODEL_PATH", "black-forest-labs/FLUX.2-klein-9B")
 os.environ["PYTORCH_CUDA_ALLOC_CONF"] = "expandable_segments:True"
 
 device = "cuda" if torch.cuda.is_available() else "cpu"
